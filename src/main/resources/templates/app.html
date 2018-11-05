@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+
+    <!-- /*******************************************************************************
+    This file is part of miRTrace.
+
+    COPYRIGHT: Marc Friedländer <marc.friedlander@scilifelab.se>, 2018
+    AUTHOR: Yrin Eldfjell <yete@kth.se>
+
+    miRTrace is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, version 3 of the License.
+
+    miRTrace is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program, see the LICENSES file.
+    If not, see <https://www.gnu.org/licenses/>.
+*******************************************************************************/ -->
+
+    <!-- This HTML page uses embedded icons from http://fontawesome.io/ . -->
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+        <script>
+
+/*
+D3 Licence. APPLIES ONLY TO THE D3.JS LIBRARY:
+Copyright 2010-2016 Mike Bostock
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the author nor the names of contributors may be used to
+  endorse or promote products derived from this software without specific prior
+  written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+!MIRTRACE!d3.min.js!
+
+/* 
+This product includes color specifications and designs developed by Cynthia Brewer (http://colorbrewer.org/).
+SOURCE: https://github.com/mbostock/d3/blob/master/lib/colorbrewer/colorbrewer.js */
+
+/* ColorBrewer licence. APPLIES ONLY TO THE COLORBREWER LIBRARY:
+
+Apache-Style Software License for ColorBrewer software and ColorBrewer Color
+Schemes
+
+Copyright (c) 2002 Cynthia Brewer, Mark Harrower, and The Pennsylvania State
+University.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions as source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+
+2. The end-user documentation included with the redistribution, if any, must
+include the following acknowledgment: "This product includes color
+specifications and designs developed by Cynthia Brewer
+(http://colorbrewer.org/)." Alternately, this acknowledgment may appear in the
+software itself, if and wherever such third-party acknowledgments normally
+appear.
+
+4. The name "ColorBrewer" must not be used to endorse or promote products
+derived from this software without prior written permission. For written
+permission, please contact Cynthia Brewer at cbrewer@psu.edu.
+
+5. Products derived from this software may not be called "ColorBrewer", nor
+may "ColorBrewer" appear in their name, without prior written permission of
+Cynthia Brewer.
+*/
+!MIRTRACE!colorbrewer.js!
+
+
+/* Licence for FileSaver.js. APPLIES ONLY TO THE FILESAVER.JS LIBRARY: */
+/* FileSaver.js
+ * NOTE: This is a trimmed down version for use with miRTrace. Go to the github page below if you want to use FileSaver.js
+ * for your own project.
+ *
+ *  2014-06-24
+ *
+ *  Modify by Brian Chen
+ *  Author: Eli Grey, http://eligrey.com
+ *  License: X11/MIT
+ *    See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+ */
+!MIRTRACE!filesaver.js!
+        </script>
+        <style id="bodyCSS">
+            body {
+                font-family: Verdana, sans-serif, Helvetica, Arial;
+                font-size: 80%;
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+
+            #topMenu {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: #eff3ff;
+                background: linear-gradient(50deg, #eff3ff, #fff);
+                border-bottom: 1px solid #08519c;
+                padding: 5px 15px 5px 15px;
+                z-index: 1000;
+                vertical-align: middle;
+                text-align: center;
+            }
+
+            .mainLogo {
+                /* float: right; */
+                padding-top: 10px;
+                padding-left: 1px;
+            }
+
+            .mainLogo img {
+                padding-right: 10px;
+            }
+
+            #reports {
+                /* max-width: 100%; */
+                text-align: center;
+            }
+
+            .reportContainer {
+                display: inline-block;
+                padding-top: 35px;
+            }
+
+            .report, .helpSection {
+                vertical-align: top;
+                position: relative;
+                padding: 0px 0 10px 0;
+                text-align: left;
+                font-size: 1em;
+                margin-top: 2px;
+                page-break-inside: avoid;
+                display: none;
+            }
+
+            .helpSection {
+                display: block !important;
+                max-width: 800px;
+            }
+
+            .helpItem {
+                margin-left: 5px;
+                margin-bottom: 5px;
+                padding-top: 2px;
+                font-size: 90%;
+                color: #404040;
+            }
+
+            .reportTitle, .helpTitle {
+                text-align: left;
+                font-weight: bold;
+                font-size: 1.3em;
+                /* color: #505050; */
+                padding: 0px 0 3px 0px;
+                margin-bottom: 5px;
+                padding-top: 10px;
+                margin-right: 5px;
+                margin-left: 5px;
+                border-top: 1px solid #ddd;
+            }
+
+            .helpTitle {
+                color: #404040;
+            }
+
+			.tipType {
+				color: #08519C;
+			}
+
+            .caption {
+                /* font-weight: bold; */
+            }
+
+            .legendGroup line {
+                stroke: #000000;
+            }
+            
+            .plotCaption {
+                max-width: 525px;
+                margin-right: 5px;
+                margin-left: 5px;
+            }
+
+            .notice {
+                border: 1px #999 solid;
+                background-color: #f5f5f5;
+                margin: 3px 0 3px 0px;
+                padding: 3px;
+            }
+
+            .noticeCaption {
+                font-weight: bold;
+            }
+
+            svg.icon {
+                width: 1.7em;
+                height: 1.5em;
+                vertical-align: middle;
+                shape-rendering: geometricPrecision;
+                position: absolute;
+                left: 2px;
+            }
+
+            .warningField, .commentField {
+                font-size: 1.5em;
+                padding: 0;
+                margin-top: 5px;
+                margin-right: 5px;
+                margin-left: 5px;
+                max-width: 525px;
+                padding-left: 37px;
+            }
+            .warningField {
+                color: #f08000;
+            }
+
+            .warningIconPath {
+                margin: 0;
+                color: #f08000;
+                stroke: #f08000;
+                fill: #f08000;
+            }
+
+            .warning {
+            }
+
+            .commentField {
+                color: #08519c;
+            }
+
+            .commentIconPath {
+                margin: 0;
+                color: #08519c;
+                stroke: #08519c;
+                fill: #08519c;
+            }
+
+            .comment {
+                vertical-align: middle;
+            }
+
+            .headerFields {
+                display: table;
+                border-collapse: collapse;
+                margin-bottom: 3px;
+                margin-right: 5px;
+                margin-left: 5px;
+            }
+
+            .headerFields > div.headerField {
+                display: table-row;
+                margin-top: 5px;
+
+            }
+            .headerFields .caption {
+                display: table-cell;
+                width: 200px;
+                padding: 5px 0px 5px 0px;
+            }
+
+            .headerFields .entry {
+                display: table-cell;
+                padding: 5px 0px 5px 0px;
+            }
+
+            .headerFields .entry .inner {
+                background-color: #08519C;
+                border-radius: .4em;
+                border: 1px solid #08519C;
+                color: #fff;
+                padding: 3px;
+                margin-right: 2px;
+            }
+
+            .rna-subunits-caption {
+                margin-top: 1em;
+            }
+
+            .rna-subunits-caption .rna-subunits {
+                background-color: #909090;
+                border-radius: .4em;
+                border: 1px solid #909090;
+                color: #fff;
+                padding: 3px;
+                margin-right: 2px;
+            }
+
+            .rna-subunits-caption .none {
+                background-color: #CD1C1C;
+                border: 1px solid #CD1C1C;
+            }
+
+            .footer {
+                margin: .5em 0 .5em 0;
+                padding: .3em;
+                padding-top: 10px;
+                border-top: 1px solid #ddd;
+                box-sizing: border-box;
+                text-align: center;
+                font-size: .8em;
+            }
+
+            .footer a {
+                color: #505050;
+            }
+
+            .noCladedsDetectedWarning {
+                fill: #e0e0e0;
+            }
+
+            .legendCategoryHeader {
+                text-anchor: start;
+                font-style: italic;
+            }
+
+            #sampleTable {
+                margin-left: -3px;
+                border-spacing: 8px 2px;
+            }
+
+            #sampleTable td {
+            }
+            
+            #sampleTable th {
+                font-weight: normal;
+                text-decoration: underline;
+            }
+
+            .numCol {
+                text-align: right;
+            }
+
+            .adapter {
+                /* Hack to fix auto-scaling of "monospace" font-family in Firefox: */
+                font-family: monospace,monospace; 
+                font-size: 1em;
+            }
+
+            .bigWarningContainer {
+                position: absolute;
+                left: 0;
+                right: 0;
+            }
+
+            .bigWarningGroup {
+                shape-rendering: geometricPrecision;
+            }
+
+			.downloadSVGIcon {
+                display: block;
+                text-indent: -9999px;
+				background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjE3OTIiCiAgIGhlaWdodD0iMTc5MiIKICAgdmlld0JveD0iMCAwIDE3OTIgMTc5MiIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnNCIKICAgc29kaXBvZGk6ZG9jbmFtZT0iZG93bmxvYWQtc3ZnLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC45Mi4xIHIxNTM3MSI+CiAgPHBhdGgKICAgICBkPSJNMTU5NiAzODBxMjggMjggNDggNzZ0MjAgODh2MTE1MnEwIDQwLTI4IDY4dC02OCAyOGgtMTM0NHEtNDAgMC02OC0yOHQtMjgtNjh2LTE2MDBxMC00MCAyOC02OHQ2OC0yOGg4OTZxNDAgMCA4OCAyMHQ3NiA0OHptLTQ0NC0yNDR2Mzc2aDM3NnEtMTAtMjktMjItNDFsLTMxMy0zMTNxLTEyLTEyLTQxLTIyem0zODQgMTUyOHYtMTAyNGgtNDE2cS00MCAwLTY4LTI4dC0yOC02OHYtNDE2aC03Njh2MTUzNmgxMjgweiIKICAgICBpZD0icGF0aDIiIC8+CiAgPGcKICAgICBhcmlhLWxhYmVsPSJTVkciCiAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMi43NTQ0NjUyLDAsMCwyLjc1NDQ2NTIsLTEwOTMuMzYyMSwtOTA4LjIwMTU4KSIKICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc2l6ZToyNi42NjY2NjYwM3B4O2xpbmUtaGVpZ2h0OjI1cHg7Zm9udC1mYW1pbHk6U2FucztsZXR0ZXItc3BhY2luZzowcHg7d29yZC1zcGFjaW5nOjBweDtmaWxsOiMwMDAwMDA7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjFweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxIgogICAgIGlkPSJmbG93Um9vdDM2OTgiPgogICAgPHBhdGgKICAgICAgIGQ9Im0gNjI1LjkxNDA2LDYwOS4zNTc0MiB2IDE4LjQ2ODc1IHEgLTEwLjc4MTI1LC01LjE1NjI1IC0yMC4zNDM3NSwtNy42ODc1IC05LjU2MjUsLTIuNTMxMjUgLTE4LjQ2ODc1LC0yLjUzMTI1IC0xNS40Njg3NSwwIC0yMy45MDYyNSw2IC04LjM0Mzc1LDYgLTguMzQzNzUsMTcuMDYyNSAwLDkuMjgxMjUgNS41MzEyNSwxNC4wNjI1IDUuNjI1LDQuNjg3NSAyMS4xODc1LDcuNTkzNzUgbCAxMS40Mzc1LDIuMzQzNzUgcSAyMS4xODc1LDQuMDMxMjUgMzEuMjE4NzUsMTQuMjUgMTAuMTI1LDEwLjEyNSAxMC4xMjUsMjcuMTg3NSAwLDIwLjM0Mzc1IC0xMy42ODc1LDMwLjg0Mzc1IC0xMy41OTM3NSwxMC41IC0zOS45Mzc1LDEwLjUgLTkuOTM3NSwwIC0yMS4xODc1LC0yLjI1IC0xMS4xNTYyNSwtMi4yNSAtMjMuMTU2MjUsLTYuNjU2MjUgdiAtMTkuNSBxIDExLjUzMTI1LDYuNDY4NzUgMjIuNTkzNzUsOS43NSAxMS4wNjI1LDMuMjgxMjUgMjEuNzUsMy4yODEyNSAxNi4yMTg3NSwwIDI1LjAzMTI1LC02LjM3NSA4LjgxMjUsLTYuMzc1IDguODEyNSwtMTguMTg3NSAwLC0xMC4zMTI1IC02LjM3NSwtMTYuMTI1IC02LjI4MTI1LC01LjgxMjUgLTIwLjcxODc1LC04LjcxODc1IGwgLTExLjUzMTI1LC0yLjI1IHEgLTIxLjE4NzUsLTQuMjE4NzUgLTMwLjY1NjI1LC0xMy4yMTg3NSAtOS40Njg3NSwtOSAtOS40Njg3NSwtMjUuMDMxMjUgMCwtMTguNTYyNSAxMy4wMzEyNSwtMjkuMjUgMTMuMTI1LC0xMC42ODc1IDM2LjA5Mzc1LC0xMC42ODc1IDkuODQzNzUsMCAyMC4wNjI1LDEuNzgxMjUgMTAuMjE4NzUsMS43ODEyNSAyMC45MDYyNSw1LjM0Mzc1IHoiCiAgICAgICBzdHlsZT0iZm9udC1zaXplOjE5MnB4IgogICAgICAgaWQ9InBhdGgzNzA2IgogICAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIgLz4KICAgIDxwYXRoCiAgICAgICBkPSJtIDY5OS45NzY1Niw3NDQuNzMyNDIgLTUzLjQzNzUsLTEzOS45Njg3NSBoIDE5Ljc4MTI1IGwgNDQuMzQzNzUsMTE3Ljg0Mzc1IDQ0LjQzNzUsLTExNy44NDM3NSBoIDE5LjY4NzUgbCAtNTMuMzQzNzUsMTM5Ljk2ODc1IHoiCiAgICAgICBzdHlsZT0iZm9udC1zaXplOjE5MnB4IgogICAgICAgaWQ9InBhdGgzNzA4IgogICAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIgLz4KICAgIDxwYXRoCiAgICAgICBkPSJtIDg5MC41NzAzMSw3MjQuNzYzNjcgdiAtMzcuNTkzNzUgaCAtMzAuOTM3NSB2IC0xNS41NjI1IGggNDkuNjg3NSB2IDYwLjA5Mzc1IHEgLTEwLjk2ODc1LDcuNzgxMjUgLTI0LjE4NzUsMTEuODEyNSAtMTMuMjE4NzUsMy45Mzc1IC0yOC4yMTg3NSwzLjkzNzUgLTMyLjgxMjUsMCAtNTEuMzc1LC0xOS4xMjUgLTE4LjQ2ODc1LC0xOS4yMTg3NSAtMTguNDY4NzUsLTUzLjQzNzUgMCwtMzQuMzEyNSAxOC40Njg3NSwtNTMuNDM3NSAxOC41NjI1LC0xOS4yMTg3NSA1MS4zNzUsLTE5LjIxODc1IDEzLjY4NzUsMCAyNS45Njg3NSwzLjM3NSAxMi4zNzUsMy4zNzUgMjIuNzgxMjUsOS45Mzc1IHYgMjAuMTU2MjUgcSAtMTAuNSwtOC45MDYyNSAtMjIuMzEyNSwtMTMuNDA2MjUgLTExLjgxMjUsLTQuNSAtMjQuODQzNzUsLTQuNSAtMjUuNjg3NSwwIC0zOC42MjUsMTQuMzQzNzUgLTEyLjg0Mzc1LDE0LjM0Mzc1IC0xMi44NDM3NSw0Mi43NSAwLDI4LjMxMjUgMTIuODQzNzUsNDIuNjU2MjUgMTIuOTM3NSwxNC4zNDM3NSAzOC42MjUsMTQuMzQzNzUgMTAuMDMxMjUsMCAxNy45MDYyNSwtMS42ODc1IDcuODc1LC0xLjc4MTI1IDE0LjE1NjI1LC01LjQzNzUgeiIKICAgICAgIHN0eWxlPSJmb250LXNpemU6MTkycHgiCiAgICAgICBpZD0icGF0aDM3MTAiCiAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIiAvPgogIDwvZz4KPC9zdmc+Cg==");
+                background-size: 24px 24px;
+                width: 24px;
+                height: 24px;
+                float: right;
+                margin: 10px 16px 6px 0;
+			}
+
+            .downloadPNGIcon {
+                display: block;
+                text-indent: -9999px;
+                background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjE3OTIiCiAgIGhlaWdodD0iMTc5MiIKICAgdmlld0JveD0iMCAwIDE3OTIgMTc5MiIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnNCIKICAgc29kaXBvZGk6ZG9jbmFtZT0iZG93bmxvYWQtcG5nLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC45Mi4xIHIxNTM3MSI+CiAgPHBhdGgKICAgICBkPSJNMTU5NiAzODBxMjggMjggNDggNzZ0MjAgODh2MTE1MnEwIDQwLTI4IDY4dC02OCAyOGgtMTM0NHEtNDAgMC02OC0yOHQtMjgtNjh2LTE2MDBxMC00MCAyOC02OHQ2OC0yOGg4OTZxNDAgMCA4OCAyMHQ3NiA0OHptLTQ0NC0yNDR2Mzc2aDM3NnEtMTAtMjktMjItNDFsLTMxMy0zMTNxLTEyLTEyLTQxLTIyem0zODQgMTUyOHYtMTAyNGgtNDE2cS00MCAwLTY4LTI4dC0yOC02OHYtNDE2aC03Njh2MTUzNmgxMjgweiIKICAgICBpZD0icGF0aDIiIC8+CiAgPGcKICAgICBhcmlhLWxhYmVsPSJQTkciCiAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMi43NTQ0NjUyLDAsMCwyLjc1NDQ2NTIsLTc4Ni41MTg0OCwtMTA0NC40NzUpIgogICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zaXplOjI2LjY2NjY2NjAzcHg7bGluZS1oZWlnaHQ6MjVweDtmb250LWZhbWlseTpTYW5zO2xldHRlci1zcGFjaW5nOjBweDt3b3JkLXNwYWNpbmc6MHB4O2ZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MXB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgaWQ9ImZsb3dSb290Mzc1MSI+CiAgICA8cGF0aAogICAgICAgZD0ibSA0NDMuMDU4NTksNjY5LjY1MDM5IHYgNTIuNTkzNzUgaCAyMy44MTI1IHEgMTMuMjE4NzUsMCAyMC40Mzc1LC02Ljg0Mzc1IDcuMjE4NzUsLTYuODQzNzUgNy4yMTg3NSwtMTkuNSAwLC0xMi41NjI1IC03LjIxODc1LC0xOS40MDYyNSAtNy4yMTg3NSwtNi44NDM3NSAtMjAuNDM3NSwtNi44NDM3NSB6IG0gLTE4LjkzNzUsLTE1LjU2MjUgaCA0Mi43NSBxIDIzLjUzMTI1LDAgMzUuNTMxMjUsMTAuNjg3NSAxMi4wOTM3NSwxMC41OTM3NSAxMi4wOTM3NSwzMS4xMjUgMCwyMC43MTg3NSAtMTIuMDkzNzUsMzEuMzEyNSAtMTIsMTAuNTkzNzUgLTM1LjUzMTI1LDEwLjU5Mzc1IGggLTIzLjgxMjUgdiA1Ni4yNSBoIC0xOC45Mzc1IHoiCiAgICAgICBzdHlsZT0iZm9udC1zaXplOjE5MnB4IgogICAgICAgaWQ9InBhdGgzNzU5IiAvPgogICAgPHBhdGgKICAgICAgIGQ9Im0gNTM5Ljk5NjA5LDY1NC4wODc4OSBoIDI1LjUgbCA2Mi4wNjI1LDExNy4wOTM3NSBWIDY1NC4wODc4OSBoIDE4LjM3NSB2IDEzOS45Njg3NSBoIC0yNS41IGwgLTYyLjA2MjUsLTExNy4wOTM3NSB2IDExNy4wOTM3NSBoIC0xOC4zNzUgeiIKICAgICAgIHN0eWxlPSJmb250LXNpemU6MTkycHgiCiAgICAgICBpZD0icGF0aDM3NjEiIC8+CiAgICA8cGF0aAogICAgICAgZD0ibSA3NzkuMDU4NTksNzc0LjA4Nzg5IHYgLTM3LjU5Mzc1IGggLTMwLjkzNzUgdiAtMTUuNTYyNSBoIDQ5LjY4NzUgdiA2MC4wOTM3NSBxIC0xMC45Njg3NSw3Ljc4MTI1IC0yNC4xODc1LDExLjgxMjUgLTEzLjIxODc1LDMuOTM3NSAtMjguMjE4NzUsMy45Mzc1IC0zMi44MTI1LDAgLTUxLjM3NSwtMTkuMTI1IC0xOC40Njg3NSwtMTkuMjE4NzUgLTE4LjQ2ODc1LC01My40Mzc1IDAsLTM0LjMxMjUgMTguNDY4NzUsLTUzLjQzNzUgMTguNTYyNSwtMTkuMjE4NzUgNTEuMzc1LC0xOS4yMTg3NSAxMy42ODc1LDAgMjUuOTY4NzUsMy4zNzUgMTIuMzc1LDMuMzc1IDIyLjc4MTI1LDkuOTM3NSB2IDIwLjE1NjI1IHEgLTEwLjUsLTguOTA2MjUgLTIyLjMxMjUsLTEzLjQwNjI1IC0xMS44MTI1LC00LjUgLTI0Ljg0Mzc1LC00LjUgLTI1LjY4NzUsMCAtMzguNjI1LDE0LjM0Mzc1IC0xMi44NDM3NSwxNC4zNDM3NSAtMTIuODQzNzUsNDIuNzUgMCwyOC4zMTI1IDEyLjg0Mzc1LDQyLjY1NjI1IDEyLjkzNzUsMTQuMzQzNzUgMzguNjI1LDE0LjM0Mzc1IDEwLjAzMTI1LDAgMTcuOTA2MjUsLTEuNjg3NSA3Ljg3NSwtMS43ODEyNSAxNC4xNTYyNSwtNS40Mzc1IHoiCiAgICAgICBzdHlsZT0iZm9udC1zaXplOjE5MnB4IgogICAgICAgaWQ9InBhdGgzNzYzIiAvPgogIDwvZz4KPC9zdmc+Cg==");
+                background-size: 24px 24px;
+                width: 24px;
+                height: 24px;
+                float: right;
+                margin: 10px 16px 6px 0;
+			}
+
+            @media print
+            {
+                #topMenu {
+                    display: none !important;
+                    height: 0;
+                }
+                .reportContainer {
+                    display: block !important;
+                }
+
+                body {
+                    font-size: 70% !important;
+                }
+            }
+        </style>
+
+        <style id="reportSVGCSS">
+            svg.plotSVG {
+                shape-rendering: crispEdges;
+                font-family: Verdana, sans-serif, Helvetica, Arial;
+                font-size: 12.8px;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                text-align: left;
+            }
+
+            .axis path,
+            .axis line {
+                fill: none;
+                stroke: #000000;
+            }
+
+            .x.axis path, 
+            .legendGroup path {
+                display: none;
+            }
+
+            .y.axis {
+                font-size: .9em;
+            }
+            
+            .yAxisLabel {
+                text-anchor: middle;
+                font-size: .9em;
+            }
+
+            .legendGroup line {
+                stroke: #000000;
+            }
+            
+            svg.icon {
+                width: 1.7em;
+                height: 1.5em;
+                vertical-align: middle;
+                shape-rendering: geometricPrecision;
+                position: absolute;
+                left: 2px;
+            }
+
+            .noCladedsDetectedWarning {
+                fill: #e0e0e0;
+            }
+
+            .legendCategoryHeader {
+                text-anchor: start;
+                font-style: italic;
+            }
+
+            .qcBar {
+                shape-rendering: geometricPrecision;
+                cursor: pointer;
+            }
+
+            .selectedSample {
+            }
+
+            .qcBar.notSelectedSample {
+                opacity: 0.4;
+            }
+
+            .sample.notSelectedSample {
+                opacity: 0.4;
+            }
+
+            .tick.notSelectedSample {
+                opacity: 0.4 ! important;
+            }
+
+            .sampleColumnBackground.notSelectedSample {
+                opacity: 0;
+            }
+
+            .legendCol2 {
+                shape-rendering: geometricPrecision;
+            }
+
+            .legendTableHeader {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="topMenu">
+            <input id="compressReportsButton" type="button" value="Compress plot height">
+        </div>
+        <div id="reports">
+            <div class="reportContainer">
+                <div class="report" id="header">
+                    <div class="mainLogo"> 
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMUAAAApCAYAAACFvu0JAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QofDS04U/ZMzQAAAjpJREFUeNrt3LFLAlEcwHENQaeG0KnELbAgEJoag/4Ax/6GhvoDhKicgqDGwKaGphpao7aahLYcQw4no8CmFq9RhXv6ft7v3Z36/Uxxvvv5e3nv3s93r1IpAAAAAACgJj0riRaLq37Qcc/rpCXtTUxxwsTUYpMb9CzxKwBGZWYhyVy14XcDjheax4Htf3590R19a2NtYpv+dTmWWaJU73GVMlMADAqA8sm12lNLPeZ3qxtTb7JcpQwKe1qrMp7XSUtXt2atj6B8AqY2l3ehg4ePwLv+4+Fe4J1X2t6GabWqVO9x92emABgUAF+0k+bm9i3weEGpPRZ0UCRtn4/W6lBQnK4wl6iF+Sy09oZJ4ruMHUV8yifAZqaonD6LRmLr/VMlGdNeJuneJ5Pu9onxfbVnBfPDPtnDuL53Nfgs2i+ic0v7TfWYk+KPxB7mIndp/NLu4Medc75oA7YYFIBN+aRVDkGhDLs4C3F21kHM8fFdxg4f/9WqjM1w2SV771PYfpE75RPgpnwyMa3S5KoNX6O9a+Py0VjdilLlPjv13TR/+SU67+so78eZr9b72vaD8mlByR6A/c1JX+36QfkEMFNEY6Vs2jnViyXOML1/wtCLJF+7+MHatZQ4HwYFElqyuV2BGheb8glgpoCJ6a8CNcqtdm1ZnItG7gwKRF7izGN5RvkEMFNEZHPd8EIznjgWMdt30kBNQb4KsRVzN21NF88U0ppt0dpHGTMJ+5riWh1yHZ/yCQAAAAAARf/SAxjANglhdgAAAABJRU5ErkJggg==">
+                    </div>
+                    <div class="reportTitle" style="border: none;"></div>
+                    <div class="headerFields"></div>
+                </div>
+                <div class="report" id="phredReport">
+                    <div class="reportTitle">PHRED Score Distribution</div>
+                    <div class="plotCaption">Percentage of nucleotides with given PHRED score.</div>
+                </div>
+                <div class="report" id="lengthReport">
+                    <div class="reportTitle">Read Length Distribution</div>
+                    <div class="plotCaption">Percentage of reads of each length.</div>
+                </div>
+                <div class="report" id="qcStatsReport">
+                    <div class="reportTitle">Quality Control Statistics</div>
+                    <div class="plotCaption">Percentage of reads with given quality control status.</div>
+                </div>
+                <div class="report" id="rnaTypeReport">
+                    <div class="reportTitle">RNA Type</div>
+                    <div class="plotCaption">Percentage of reads of each RNA type.</div>
+                </div>
+                <div class="report" id="complexityReport">
+                    <div class="reportTitle">miRNA Complexity</div>
+                    <div class="plotCaption">Number of detected distinct miRNA genes as function of read depth.</div>
+                </div>
+                <div class="report" id="contaminationReport">
+                    <div class="reportTitle">Contamination</div>
+                    <div class="plotCaption">Percentage of clade-specific miRNA-reads belonging to each clade.</div>
+                </div>
+                <div class="report" id="sampleStatisticsReport">
+                    <div class="reportTitle">Sample Statistics</div>
+                    <div class="plotCaption"></div>
+                    <table id="sampleTable">
+                    </table>
+                </div>
+                <div class="helpSection">
+                    <div class="helpTitle">Usage Advice</div>
+                    <div class="helpItem"><span class="tipType">Note:</span> the <b>counts on top of each sample bar</b> show the number of reads used as input for this module.</div>
+                    <div class="helpItem"><span class="tipType">Sample filtering tip:</span> <b>samples can be selected by left-clicking</b> the sample bar (use the ctrl/command key to select multiple).</div>
+                    <div class="helpItem"><span class="tipType">Sample filtering tip:</span> selecting one or more samples will update the legends to show statistics for only these samples.</div>
+                    <div class="helpItem"><span class="tipType">Navigation tip:</span> to <b>quickly navigate</b> between the report types <b>use the arrow keys</b> (also the WASD and HJKL sets of keys work).</div>
+                    <div class="helpItem"><span class="tipType">Navigation tip:</span> Selected samples can be <b>shifted using the left/right arrow keys.</b></div>
+                    <div class="helpItem"><span class="tipType">Layout tip:</span> when using the <b>"Compress reports" button</b> in the top bar, the page switches to a compact representation.</div>
+                    <div class="helpItem">For more information, see the PDF manual or go to the <a href="https://friedlanderlab.org/software/mirtrace/">miRTrace web site</a>.</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span id="mirtraceVersion"></span> | <a href="https://www.friedlanderlab.org/">Friedländer Lab</a>
+        </div>
+    <script>
+        "use strict";
+        var qcReport = !MIRTRACE!JSON_STATS_BLOCK!;
+!MIRTRACE!app.js!
+    </script>
+    </body>
+</html>

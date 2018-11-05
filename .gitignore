@@ -1,0 +1,6 @@
+target/*
+src/main/resources/databases/*
+mir*html
+releases/*
+.DS_Store/
+__pycache__/

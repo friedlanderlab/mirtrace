@@ -1,0 +1,83 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+import sys
+import os
+import re
+
+DEFAULT_HEAP_ALLOCATION_SIZE = 2 * 1024**3
+
+jar_name = 'mirtrace.jar'
+cur_path = os.path.dirname(__file__)
+start_script_wrapper_name = os.path.basename(__file__)
+
+# The miRTrace JAR is assumed to be located either in the same dir as this
+# script, or in a subdirectory called "target".
+mirtrace_paths = [
+        os.path.join(cur_path, 'target/', jar_name),
+        os.path.join(cur_path, '.', jar_name)
+]
+
+mirtrace_path = None
+for path_candidate in mirtrace_paths:
+    if os.path.exists(path_candidate):
+        mirtrace_path = path_candidate
+        break
+if not mirtrace_path:
+    print("Could not find mirtrace jar file.", file=sys.stderr)
+    sys.exit(-1)
+
+def print_manual_jar_help_text():
+    print("java -jar {0} --help".format(mirtrace_path))
+
+try:
+    import subprocess
+    memory_to_use = None
+    if sys.platform.startswith('linux'):
+        tot_mem = (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))
+        memory_to_use = tot_mem / 2
+    elif sys.platform.startswith('darwin'): # Mac OS X
+        try:
+            sysctl_out = subprocess.check_output(['sysctl', '-a'])
+            for line in sysctl_out.splitlines():
+                if sys.version_info.major >= 3:
+                    RE_SYSCTL_OUTPUT = br'([A-Za-z._]+)\s*[:=]\s*(\d+)'
+                    HW_MEMSIZE_LITERAL = b'hw.memsize'
+                else:
+                    RE_SYSCTL_OUTPUT = r'([A-Za-z._]+)\s*[:=]\s*(\d+)'
+                    HW_MEMSIZE_LITERAL = 'hw.memsize'
+                m = re.search(RE_SYSCTL_OUTPUT, line)
+                if m:
+                    if m.group(1) == HW_MEMSIZE_LITERAL:
+                        memory_to_use = int(m.group(2))
+        except subprocess.CalledProcessError:
+            print("Warning: Could not determine memory size using sysctl on Mac OS X platform.", file=sys.stderr)
+
+    mem_arg_xms = "{0:.0f}M".format(memory_to_use / 1024**2)
+    mem_arg_xmx = mem_arg_xms
+    if memory_to_use == None:
+        memory_to_use = DEFAULT_HEAP_ALLOCATION_SIZE
+        print("Unknown platform - unable to determine available memory.")
+        print("Using a default memory setting of " + mem_arg_xms + ".")
+        print()
+        print("If this is not enough, please run the mirtrace manually.")
+        print_manual_jar_help_text()
+
+
+    java_cmd = [
+            'java', '-Xms' + mem_arg_xms, '-Xmx' + mem_arg_xmx, '-jar', 
+            mirtrace_path, '--mirtrace-wrapper-name', start_script_wrapper_name
+    ]
+    java_cmd.extend(sys.argv[1:])
+    subprocess.call(java_cmd)
+except KeyboardInterrupt:
+    print("\nmiRTrace cancelled. Incomplete output files may be remaining.")
+    pass
+except:
+    print()
+    print("For some reason the 'mirtrace' launch-script has failed. Please run the miRTrace JAR manually:")
+    print()
+    print_manual_jar_help_text()
+    print()
+    raise
