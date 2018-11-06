@@ -394,7 +394,7 @@ class AnalysisPipeline extends Thread {
 				int seqLenTrimmed = findAdapter(sequence, seqLen, adapterSequence);
 				adapterDetected = (seqLenTrimmed != ADAPTER_NOT_FOUND);
 				if (adapterDetected) {
-					adapterDetected = ((seqLen - seqLenTrimmed) >= 8);
+					adapterDetected = ((seqLen - seqLenTrimmed) >= adapterSequence.length);
 					seqLen = seqLenTrimmed;
 				}
 			} else if (config.getSeqProtocol().equals("cats")) {
@@ -412,7 +412,7 @@ class AnalysisPipeline extends Thread {
 				}
 				adapterDetected = (seqLenTrimmed != ADAPTER_NOT_FOUND);
 				if (adapterDetected) {
-					adapterDetected = ((seqLen - seqLenTrimmed) >= 8);
+					adapterDetected = ((seqLen - seqLenTrimmed) >= adapterSequence.length);
 					seqLen = seqLenTrimmed;
 					
 					/* Finally, if the adapter was detected, trim the poly-A tail.*/
@@ -434,7 +434,7 @@ class AnalysisPipeline extends Thread {
 				int seqLenTrimmed = findAdapter(sequence, seqLen, adapterSequence);
 				adapterDetected = (seqLenTrimmed != ADAPTER_NOT_FOUND);
 				if (adapterDetected) {
-					adapterDetected = ((seqLen - seqLenTrimmed) >= 8);
+					adapterDetected = ((seqLen - seqLenTrimmed) >= adapterSequence.length);
 					seqLen = seqLenTrimmed;
 					/* Finally, if the adapter was detected, trim the last 4 letters.*/
 					int trimmed = 0;
