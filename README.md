@@ -23,7 +23,7 @@ The [miRTrace Manual](release-bundle-includes/manual.pdf).
 * Ability to read gzipped FASTQ files (typically also the preferred option).
 * Ability to read from pipes (saves processing time and disk space) [Use only if necessary - less robust because samples cannot be restarted].
 * Autodetection of PHRED score encoding in FASTQ files.
-* Users can generate custom databases for the RNA type analysis. e.g. provide miRNA, tRNA and rRNA reference sequences for interested species.
+* Users can generate custom databases for the RNA type analysis, i.e. provide miRNA, tRNA, rRNA and/or artifacts reference sequences for species of interest.
 
 ## The two modes of miRTrace 
 
@@ -47,7 +47,7 @@ Potential applications:
 * Forensics, e.g. a blood droplet is derived from human or other animals. 
 
 
-## Generated reports
+## Outputs
 * Output (always): An interactive HTML report, a JSON file and tab-separated statistics files.
 * Output (Optinoal): FASTA files of QC passed reads (sorted by sequence abundance). 
 * The HTML report features warning icons for samples failing predefined quality thresholds.
