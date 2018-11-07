@@ -56,7 +56,7 @@ Potential applications:
 
 
 ## Requirements
-* Java 1.7 or higher. You can download the latest java JDK at [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html). 
+* Java 1.7 or higher. You can download the latest java JDK at [here](https://www.oracle.com/technetwork/java/javase/downloads/index.html) or use OpenJDK. 
   - [Note: Mac computers may in some cases have the now obsolete Java 1.6 as default version. If Java 1.6 is used to run miRTrace, you will get the error message "Exception in thread "main" java.lang.UnsupportedClassVersionError: se/scilifelab/mirtrace/MiRTrace : Unsupported major.minor version 51.0"]
 * An absolute minimum of 1 GB of RAM is required. Significantly more may be needed to process large samples effciently. We recommend a at least 4 GB of RAM, preferrably 16 GB. For compute-nodes with many cores, more RAM may be needed for optimal performance.
 * For the HTML report, any "modern" web browser that supports the D3.js library. This includes Chrome, Firefox, Internet Explorer 9+, Opera and Safari. Note that reports with a very large number of samples (50-100 or more) may be slow or inaccessible on typical hardware.
@@ -73,10 +73,10 @@ Potential applications:
 
 ## Reference databases
 * Ribosomal RNA (rRNA) sequences, which are curated from NCBI Nucleotide, Silva and Ensembl database. [databases/rRNA_reference.fa](src/lib/inputs/rRNA_reference.fa)
-* Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [src/lib/inputs/tRNA_references.fa](databases/tRNA_references.fa)
-* miRNA hairpin sequences, which are downloaded from miRBase. [src/lib/inputs/miRNA_hairpin_v21.fa](databases/miRNA_hairpin_v21.fa)
-* Artifact sequences, which are curated from Illumina adapter sequence document. [src/lib/inputs/artifact_sequences.fa](databases/artifact_sequences.fa)
-* Clade-specific miRNA families are curated from previous publication [1] and [2] [src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt] and [src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt].
+* Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [src/lib/inputs/tRNA_references.fa](src/lib/inputs/tRNA_references.fa)
+* miRNA hairpin sequences, which are downloaded from miRBase. [src/lib/inputs/miRNA_hairpin_v21.fa](src/lib/inputs/miRNA_hairpin_v21.fa)
+* Artifact sequences, which are curated from Illumina adapter sequence document. [src/lib/inputs/artifact_sequences.fa](src/lib/inputs/artifact_sequences.fa)
+* Clade-specific miRNA families are curated from previous publication [1] and [2] [src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt] and (src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt).
 
 
 ## Custom user-generated databases
