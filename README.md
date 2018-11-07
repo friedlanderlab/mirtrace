@@ -10,7 +10,9 @@ miRTrace is published : <TODO: Insert link/DOI when available>.
 
 Figure 1: species tree of the 14 clades with unscaled branches. 
 
-<br><br>
+## Manual
+[miRTrace Manual](release-bundle-includes/manual.pdf).
+
 ## Features
 * Supports (in principle) any platform cabable of running Java 1.7 or higher, including Linux, Mac OS X, Windows.
 * All dependencies and databases are included in a JAR-file.
@@ -23,13 +25,11 @@ Figure 1: species tree of the 14 clades with unscaled branches.
 * Autodetection of PHRED score encoding in FASTQ files.
 * Users can generate custom databases for the RNA type analysis. e.g. provide miRNA, tRNA and rRNA reference sequences for interested species.
 
-<br><br>
 ## The two modes of miRTrace 
 
 * **QC mode (`mirtrace qc`): quality control of small RNA sequencing data**
 * **Trace mode (`mirtrace trace`): disern sample organimsal origin**
 
-<br><br>
 In the **QC mode**, miRTrace can be applied to the 219 animal and plant species covered by miRBase v21. The generated HTML quality control report covers the following six aspects: 
 * Phred score distribution
 * Read length distribution
@@ -38,7 +38,6 @@ In the **QC mode**, miRTrace can be applied to the 219 animal and plant species 
 * miRNA complexity
 * Contamination (as same as the output from the trace mode)
      
-<br><br>
 In the **Trace mode**, you can get a Trace report showing the clade-specific miRNA types and abundances in each sample. 
 
 Potential applications:
@@ -46,7 +45,7 @@ Potential applications:
 * Detect exogenous miRNAs, e,g, parasitic miRNAs in host sample, plant derived spike-in RNAs from Exiqon.
 * Food safety, e.g. rodent meat passed off as beef
 * Forensics, e.g. a blood droplet is derived from human or other animals. 
-<br><br>
+
 
 ## Generated reports
 * Output (always): An interactive HTML report, a JSON file and tab-separated statistics files.
@@ -55,7 +54,7 @@ Potential applications:
 * Tip: Report features a "compressed mode" making cross-report comparisons easier. 
 * Tip: Samples can be selected by left-clicking the sample bar (use the ctrl/command key to select multiple). The legens will be updated to show statistics for the selected samples. Use the W and S keys to quickly navigate between the plots. 
 
-<br><br>
+
 ## Requirements
 * Java 1.7 or higher. You can download the latest java JDK at [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html). 
   - [Note: Mac computers may in some cases have the now obsolete Java 1.6 as default version. If Java 1.6 is used to run miRTrace, you will get the error message "Exception in thread "main" java.lang.UnsupportedClassVersionError: se/scilifelab/mirtrace/MiRTrace : Unsupported major.minor version 51.0"]
@@ -63,7 +62,7 @@ Potential applications:
 * For the HTML report, any "modern" web browser that supports the D3.js library. This includes Chrome, Firefox, Internet Explorer 9+, Opera and Safari. Note that reports with a very large number of samples (50-100 or more) may be slow or inaccessible on typical hardware.
 * To build miRTrace, additional software is required, such as Python 3.
 
-<br><br>
+
 ## Installation
 1. Download the release version of miRTrace or clone this repository to build it yourself.
    The miRTrace package includes executable mirtrace.jar (the Java program) and mirtrace (a wrapper script written in Python). The mirtrace wrapper script can automatically determine a reasonable memory allocation (half of system RAM)  and use these parameters to invoce miRTrace.jar. [Note: the wrapper script is not tested on the Windows platform.]
@@ -72,9 +71,6 @@ Potential applications:
    - Using mirtrace wrapper script: `./mirtrace <additional parameters, see manual>`. If the wrapper script is not executable, try `chmod gu+x mirtrace`.
    - Using mirtrace.jar: `java -jar -Xms4G -Xmx4G mirtrace.jar <additional parameters, see manual>`. Change the "4" to about half of your system RAM or more. To verify that you are using the correct version of Java, run `java -version`.
 
-See also the [miRTrace Manual](release-bundle-includes/manual.pdf) contains much more details.
-
-<br><br>
 ## Reference databases
 * Ribosomal RNA (rRNA) sequences, which are curated from NCBI Nucleotide, Silva and Ensembl database. [databases/rRNA_reference.fa](databases/rRNA_reference.fa)
 * Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [databases/tRNA_references.fa](databases/tRNA_references.fa)
@@ -82,13 +78,13 @@ See also the [miRTrace Manual](release-bundle-includes/manual.pdf) contains much
 * Artifact sequences, which are curated from Illumina adapter sequence document. [databases/artifact_sequences.fa](databases/artifact_sequences.fa)
 * Clade-specific miRNA families are curated from previous publication [1] and [2] [databases/clade-specific_miRNA_families.txt](databases/clade-specific_miRNA_families.txt)
 
-<br><br>
+
 ## Custom user-generated databases
 To generate refernece databases of RNA type analysis for a species not in the miRTrace package (or a different version of an existing species), use the 'generate-mirtrace-rnatype-database.py' script located in the 'bin' folder.
 This script as well as the associated Python-files must be made user-executable (\* nix platforms).'
 To use the generated databases, specify a --custom-db-folder argument to the main miRTrace application.
 
-<br><br>
+
 ## Building miRTrace from source
 miRTrace is built using [Maven](https://maven.apache.org). The project contains Java code which is built in the compile phase and databases which are built during the generate-resources phase.
 
