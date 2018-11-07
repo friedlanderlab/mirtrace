@@ -49,10 +49,10 @@ Potential applications:
 
 ## Outputs
 * Output (always): An interactive HTML report, a JSON file and tab-separated statistics files.
-* Output (Optinoal): FASTA files of QC passed reads (sorted by sequence abundance). 
-* The HTML report features warning icons for samples failing predefined quality thresholds.
-* Tip: Report features a "compressed mode" making cross-report comparisons easier. 
-* Tip: Samples can be selected by left-clicking the sample bar (use the ctrl/command key to select multiple). The legens will be updated to show statistics for the selected samples. Use the W and S keys to quickly navigate between the plots. 
+* Output (optinoal): FASTA files of QC passed reads (sorted by sequence abundance). 
+* Tip: The HTML report features warning icons for samples failing predefined quality thresholds.
+* Tip: The HTML report features a "compressed mode" making cross-report comparisons easier. 
+* Tip: Samples can be selected by left-clicking the sample bar (use the ctrl/command key to select multiple). The plot legends will then shows statistics for the selected samples only. Use the W and S keys to quickly navigate between the plots. 
 
 
 ## Requirements
@@ -72,11 +72,11 @@ Potential applications:
    - Using mirtrace.jar: `java -jar -Xms4G -Xmx4G mirtrace.jar <additional parameters, see manual>`. Change the "4" to about half of your system RAM or more. To verify that you are using the correct version of Java, run `java -version`.
 
 ## Reference databases
-* Ribosomal RNA (rRNA) sequences, which are curated from NCBI Nucleotide, Silva and Ensembl database. [databases/rRNA_reference.fa](databases/rRNA_reference.fa)
-* Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [databases/tRNA_references.fa](databases/tRNA_references.fa)
-* miRNA hairpin sequences, which are downloaded from miRBase. [databases/miRNA_hairpin_v21.fa](databases/miRNA_hairpin_v21.fa)
-* Artifact sequences, which are curated from Illumina adapter sequence document. [databases/artifact_sequences.fa](databases/artifact_sequences.fa)
-* Clade-specific miRNA families are curated from previous publication [1] and [2] [databases/clade-specific_miRNA_families.txt](databases/clade-specific_miRNA_families.txt)
+* Ribosomal RNA (rRNA) sequences, which are curated from NCBI Nucleotide, Silva and Ensembl database. [databases/rRNA_reference.fa](src/lib/inputs/rRNA_reference.fa)
+* Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [src/lib/inputs/tRNA_references.fa](databases/tRNA_references.fa)
+* miRNA hairpin sequences, which are downloaded from miRBase. [src/lib/inputs/miRNA_hairpin_v21.fa](databases/miRNA_hairpin_v21.fa)
+* Artifact sequences, which are curated from Illumina adapter sequence document. [src/lib/inputs/artifact_sequences.fa](databases/artifact_sequences.fa)
+* Clade-specific miRNA families are curated from previous publication [1] and [2] [src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt] and [src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt].
 
 
 ## Custom user-generated databases
@@ -94,4 +94,8 @@ To build a complete Jar file run: `mvn clean compile package`. The created Jar c
 ### Updating the version number
 The version number needs to be updated in Config.java ("MIRTRACE_VERSION") and in pom.xml.
 
+## References
+[1] Peterson, K.J., M.R. Dietrich, and M.A. McPeek, MicroRNAs and metazoan macroevolution: insights into canalization, complexity, and the Cambrian explosion. Bioessays, 2009. 31(7): p. 736-47.
+
+[2] Taylor, R.S., et al., Evolutionary history of plant microRNAs. Trends Plant Sci, 2014. 19(3): p. 175-82.
 
