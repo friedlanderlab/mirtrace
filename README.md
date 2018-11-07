@@ -67,9 +67,11 @@ Potential applications:
 1. Download the release version of miRTrace or clone this repository to build it yourself.
    The miRTrace package includes executable mirtrace.jar (the Java program) and mirtrace (a wrapper script written in Python). The mirtrace wrapper script can automatically determine a reasonable memory allocation (half of system RAM)  and use these parameters to invoce miRTrace.jar. [Note: the wrapper script is not tested on the Windows platform.]
 
-2. Run miRTrace
+2. Run miRTrace:
    - Using mirtrace wrapper script: `./mirtrace <additional parameters, see manual>`. If the wrapper script is not executable, try `chmod gu+x mirtrace`.
    - Using mirtrace.jar: `java -jar -Xms4G -Xmx4G mirtrace.jar <additional parameters, see manual>`. Change the "4" to about half of your system RAM or more. To verify that you are using the correct version of Java, run `java -version`.
+
+The [miRTrace Manual](release-bundle-includes/manual.pdf) contains examples for multiple use-cases.
 
 ## Reference databases
 * Ribosomal RNA (rRNA) sequences, which are curated from NCBI Nucleotide, Silva and Ensembl database. [databases/rRNA_reference.fa](src/lib/inputs/rRNA_reference.fa)
