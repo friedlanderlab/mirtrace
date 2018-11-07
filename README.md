@@ -82,13 +82,13 @@ The [miRTrace manual](release-bundle-includes/manual.pdf) contains examples for 
 
 
 ## Custom (user-generated) databases
-To generate refernece databases of RNA type analysis for a species not in the miRTrace package (or a different version of an existing species), use the 'generate-mirtrace-rnatype-database.py' script located in the 'bin' folder.
+To generate reference databases of RNA type analysis for a species not in the miRTrace package (or a different version of an existing species), use the 'generate-mirtrace-rnatype-database.py' script located in the 'bin' folder.
 This script as well as the associated Python-files must be made user-executable (\*nix platforms).'
 To use the generated databases, specify a --custom-db-folder argument to the main miRTrace application.
 
 
 ## Building miRTrace from source
-miRTrace is built using [Maven](https://maven.apache.org). The project contains Java code which is built in the compile phase and databases which are built during the generate-resources phase.
+miRTrace is built using [Maven](https://maven.apache.org). The project contains Java code which is built in the compile phase and databases which are built during the generate-resources phase. The project is intended to be edited using Eclipse as IDE but no Eclipse-specific files are included in the repository.
 
 ### Building a Jar
 To build a complete Jar file run: `mvn clean compile package`. The created Jar can be found in `{project directory}/target/mirtrace.jar`.
