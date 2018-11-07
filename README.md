@@ -48,10 +48,10 @@ Potential applications:
 * Forensics, e.g. a blood droplet is derived from human or other animals. 
 <br><br>
 
-## The HTML report
-* An interactive HTML report, tabular and JSON statistics files are always generated.
-* The HTML report also features warning icons for suspect samples.
-* Ability to generate FASTA files of QC passed reads (sorted by sequence abundance). 
+## Generated reports
+* Output (always): An interactive HTML report, a JSON file and tab-separated statistics files.
+* Output (Optinoal): FASTA files of QC passed reads (sorted by sequence abundance). 
+* The HTML report features warning icons for samples failing predefined quality thresholds.
 * Tip: Report features a "compressed mode" making cross-report comparisons easier. 
 * Tip: Samples can be selected by left-clicking the sample bar (use the ctrl/command key to select multiple). The legens will be updated to show statistics for the selected samples. Use the W and S keys to quickly navigate between the plots. 
 
