@@ -78,12 +78,12 @@ The [miRTrace manual](release-bundle-includes/manual.pdf) contains examples for 
 * Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [src/lib/inputs/tRNA_reference.fa](src/lib/inputs/tRNA_reference.fa)
 * miRNA hairpin sequences, which are downloaded from miRBase. [src/lib/inputs/miRNA_hairpin_v21.fa](src/lib/inputs/miRNA_hairpin_v21.fa)
 * Artifact sequences, which are curated from Illumina adapter sequence document. [src/lib/inputs/artifact_sequences.fa](src/lib/inputs/artifact_sequences.fa)
-* Clade-specific miRNA families are curated from previous publication [1] and [2] (src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt)[src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt] and [src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt](src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt).
+* Clade-specific miRNA families are curated from previous publication [1] and [2] [src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt](src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt) and [src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt](src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt).
 
 
 ## Custom user-generated databases
 To generate refernece databases of RNA type analysis for a species not in the miRTrace package (or a different version of an existing species), use the 'generate-mirtrace-rnatype-database.py' script located in the 'bin' folder.
-This script as well as the associated Python-files must be made user-executable (\* nix platforms).'
+This script as well as the associated Python-files must be made user-executable (\*nix platforms).'
 To use the generated databases, specify a --custom-db-folder argument to the main miRTrace application.
 
 
