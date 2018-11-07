@@ -11,7 +11,7 @@ miRTrace is published : <TODO: Insert link/DOI when available>.
 Figure 1: species tree of the 14 clades with unscaled branches. 
 
 ## Manual
-The [miRTrace Manual](release-bundle-includes/manual.pdf).
+The [miRTrace manual](release-bundle-includes/manual.pdf).
 
 ## Features
 * Supports (in principle) any platform cabable of running Java 1.7 or higher, including Linux, Mac OS X and Windows.
@@ -71,11 +71,11 @@ Potential applications:
    - Using mirtrace wrapper script: `./mirtrace <additional parameters, see manual>`. If the wrapper script is not executable, try `chmod gu+x mirtrace`.
    - Using mirtrace.jar: `java -jar -Xms4G -Xmx4G mirtrace.jar <additional parameters, see manual>`. Change the "4" to about half of your system RAM or more. To verify that you are using the correct version of Java, run `java -version`.
 
-The [miRTrace Manual](release-bundle-includes/manual.pdf) contains examples for multiple use-cases.
+The [miRTrace manual](release-bundle-includes/manual.pdf) contains examples for multiple use-cases.
 
 ## Reference databases
 * Ribosomal RNA (rRNA) sequences, which are curated from NCBI Nucleotide, Silva and Ensembl database. [databases/rRNA_reference.fa](src/lib/inputs/rRNA_reference.fa)
-* Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [src/lib/inputs/tRNA_references.fa](src/lib/inputs/tRNA_references.fa)
+* Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [src/lib/inputs/tRNA_reference.fa](src/lib/inputs/tRNA_reference.fa)
 * miRNA hairpin sequences, which are downloaded from miRBase. [src/lib/inputs/miRNA_hairpin_v21.fa](src/lib/inputs/miRNA_hairpin_v21.fa)
 * Artifact sequences, which are curated from Illumina adapter sequence document. [src/lib/inputs/artifact_sequences.fa](src/lib/inputs/artifact_sequences.fa)
 * Clade-specific miRNA families are curated from previous publication [1] and [2] (src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt)[src/lib/curated/clade-specific_miRNA_families_of_animal_clades.txt] and [src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt](src/lib/curated/clade-specific_miRNA_families_of_plant_clades.txt).
