@@ -176,4 +176,4 @@ with open(SPECIES_LISTING_FILENAME, 'a') as f_species_listing:
                         key=numeric_compare)]))
     )
 
-print("USAGE: to run miRTrace with a custom database you need to specify the path to the database files (argument --custom-db-folder) and the species abbreviation (argument --species).")
+print("INFO: to run miRTrace with a custom database you need to specify the path to the database files (argument --custom-db-folder) and the species abbreviation (argument --species).")
