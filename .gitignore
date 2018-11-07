@@ -1,6 +1,7 @@
 target/*
 src/main/resources/databases/*
 mir*html
-releases/*
+release/*
 .DS_Store/
 __pycache__/
+.settings
