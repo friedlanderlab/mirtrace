@@ -11,17 +11,17 @@ miRTrace is published : <TODO: Insert link/DOI when available>.
 Figure 1: species tree of the 14 clades with unscaled branches. 
 
 ## Manual
-[miRTrace Manual](release-bundle-includes/manual.pdf).
+The [miRTrace Manual](release-bundle-includes/manual.pdf).
 
 ## Features
-* Supports (in principle) any platform cabable of running Java 1.7 or higher, including Linux, Mac OS X, Windows.
-* All dependencies and databases are included in a JAR-file.
+* Supports (in principle) any platform cabable of running Java 1.7 or higher, including Linux, Mac OS X and Windows.
+* All dependencies and databases are included in the miRTrace JAR-file.
 * Easy-to-use Python start script provided for Linux and MacOSX.
 * Multi-threaded (one thread per FASTQ file up to CPU and memory limits).
 * Optimized for processing speed but can handle low-memory environments reasonably well.
 * Can handle *very* large FASTQ files given sufficient memory.
 * Ability to read gzipped FASTQ files (typically also the preferred option).
-* Ability to read from pipes (saves processing time and disk space).
+* Ability to read from pipes (saves processing time and disk space) [Use only if necessary - less robust because samples cannot be restarted].
 * Autodetection of PHRED score encoding in FASTQ files.
 * Users can generate custom databases for the RNA type analysis. e.g. provide miRNA, tRNA and rRNA reference sequences for interested species.
 
