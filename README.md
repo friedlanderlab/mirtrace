@@ -1,10 +1,11 @@
 ![miRTrace logo](images/logo.png)
 <br><br>
-# miRTrace: a tool for quality control and tracing taxonomic origins of microRNA sequencing data
+# [miRTrace](https://friedlanderlab.org/software/mirtrace/): a tool for quality control and tracing taxonomic origins of microRNA sequencing data
 
 miRTrace is a new quality control and taxonomic tracing tool developed specifically for small RNA sequencing data (sRNA-Seq). Each sample is characterized by profiling sequencing quality, read length, sequencing depth and miRNA complexity and also the amounts of miRNAs versus undesirable sequences (derived from tRNAs, rRNAs and sequencing artifacts). In addition to these routine quality control (QC) analyses, miRTrace can accurately and sensitively resolve taxonomic origins of small RNA-Seq data based on the composition of clade-specific miRNAs. This feature can be used to detect cross-clade contaminations in typical lab settings. It can also be applied for more specific applications in forensics, food quality control and clinical diagnosis, for instance tracing the origins of meat products or detecting parasitic microRNAs in host serum.
 
-miRTrace is published : <TODO: Insert link/DOI when available>.
+miRTrace is published in [Genome Biology (2018)](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1588-9). If you use miRTrace, please cite:
+> Kang W; Eldfjell Y; Fromm B; Estivill X; Biryukova I; Friedländer MR, 2018. miRTrace reveals the organismal origins of microRNA sequencing data. Genome Biol 19(1):213
 
 ![Image of species tree](images/species_tree.png)
 
@@ -24,7 +25,7 @@ The [miRTrace manual](release-bundle-includes/manual.pdf).
 * Optimized for processing speed but can handle low-memory environments reasonably well.
 * Can handle *very* large FASTQ files given sufficient memory.
 * Ability to read gzipped FASTQ files (typically also the preferred option).
-* Ability to read from pipes (saves processing time and disk space) [Use only if necessary - less robust because samples cannot be restarted].
+* Ability to read from pipes (saves processing time and disk space) _Use only if necessary - less robust because samples cannot be restarted_.
 * Autodetection of PHRED score encoding in FASTQ files.
 * Users can generate custom databases for the RNA type analysis, i.e. provide miRNA, tRNA, rRNA and/or artifacts reference sequences for species of interest.
 
