@@ -10,6 +10,9 @@ miRTrace is published : <TODO: Insert link/DOI when available>.
 
 Figure 1: species tree of the 14 clades with unscaled branches. 
 
+## License
+See [release-bundle-includes/LICENCE](release-bundle-includes/LICENCE)
+
 ## Manual
 The [miRTrace manual](release-bundle-includes/manual.pdf).
 
