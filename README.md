@@ -60,7 +60,7 @@ Potential applications:
 
 
 ## Requirements
-* Java 1.7 or higher. You can download the latest java JDK at [here](https://www.oracle.com/technetwork/java/javase/downloads/index.html) or use OpenJDK. 
+* Java 1.7 or higher. We recommend using OpenJDK or any other open source-licenced JDK. Example: [JDK 11.0.1 General-Availability Release](https://jdk.java.net/11/)
   - [Note: Mac computers may in some cases have the now obsolete Java 1.6 as default version. If Java 1.6 is used to run miRTrace, you will get the error message "Exception in thread "main" java.lang.UnsupportedClassVersionError: se/scilifelab/mirtrace/MiRTrace : Unsupported major.minor version 51.0"]
 * An absolute minimum of 1 GB of RAM is required. Significantly more may be needed to process large samples effciently. We recommend a at least 4 GB of RAM, preferrably 16 GB. For compute-nodes with many cores, more RAM may be needed for optimal performance.
 * For the HTML report, any "modern" web browser that supports the D3.js library. This includes Chrome, Firefox, Internet Explorer 9+, Opera and Safari. Note that reports with a very large number of samples (50-100 or more) may be slow or inaccessible on typical hardware.
