@@ -68,6 +68,14 @@ Potential applications:
 
 
 ## Installation
+
+### Using conda
+
+```bash
+conda install -c bioconda mirtrace
+```
+
+### From source
 1. Download the release version of miRTrace or clone this repository to build it yourself.
    The miRTrace package includes executable mirtrace.jar (the Java program) and mirtrace (a wrapper script written in Python). The mirtrace wrapper script can automatically determine a reasonable memory allocation (half of system RAM)  and use these parameters to invoce miRTrace.jar. [Note: the wrapper script is not tested on the Windows platform.]
 
