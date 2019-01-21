@@ -85,6 +85,8 @@ conda install -c bioconda mirtrace
 
 The [miRTrace manual](release-bundle-includes/manual.pdf) contains examples for multiple use-cases.
 
+_If you use miRTrace for your research, please cite our paper._
+
 ## Reference databases
 * Ribosomal RNA (rRNA) sequences, which are curated from NCBI Nucleotide, Silva and Ensembl database. [databases/rRNA_reference.fa](src/lib/inputs/rRNA_reference.fa)
 * Transfer RNA (tRNA) sequences, which are curated from rRNAdb and mitotRNAdb. [src/lib/inputs/tRNA_reference.fa](src/lib/inputs/tRNA_reference.fa)
