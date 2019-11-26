@@ -81,7 +81,7 @@ class Config {
 	static final int ARTIFACTS_MAPPER_SLIDING_WINDOW_SIZE = 18;
 	
 	/* Command-line UI texts. */
-	static final String MIRTRACE_VERSION = "1.0.0";
+	static final String MIRTRACE_VERSION = "1.0.1";
 	static final String CITATION_TEXT = "Thank you for using miRTrace. Please cite our corresponding paper as:\n\n" + 
 				"Kang W; Eldfjell Y; Fromm B; Estivill X; Biryukova I; Friedländer MR, 2018. miRTrace reveals the organismal origins of microRNA sequencing data. Genome Biol 19(1):213\n\n";
 

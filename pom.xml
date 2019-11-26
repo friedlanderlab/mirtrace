@@ -8,7 +8,7 @@
   <build>
     <finalName>mirtrace</finalName>
   </build>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <name>miRTrace</name>
 
   <url>http://maven.apache.org</url>

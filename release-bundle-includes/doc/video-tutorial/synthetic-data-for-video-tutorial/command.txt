@@ -1,0 +1,1 @@
+mirtrace qc -a TGGAATTCT -s hsa sample*
