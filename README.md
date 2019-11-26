@@ -8,7 +8,7 @@ miRTrace is published in [Genome Biology (2018)](https://genomebiology.biomedcen
 > Kang W; Eldfjell Y; Fromm B; Estivill X; Biryukova I; Friedländer MR, 2018. miRTrace reveals the organismal origins of microRNA sequencing data. Genome Biol 19(1):213
 
 ## Video tutorial
-[Video tutorial](release-bundle-includes/doc/video-tutorial/mirtrace-video-tutorial.mp4).
+[Video tutorial](https://friedlanderlab.org/html/mirtrace-video-tutorial.mp4).
 
 ## Clades identified by miRTrace
 ![Image of species tree](images/species_tree.png)
