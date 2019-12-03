@@ -19,7 +19,7 @@ Above is the species tree of the 14 clades with unscaled branches.
 See [release-bundle-includes/LICENCE](release-bundle-includes/LICENCE)
 
 ## Manual
-The [miRTrace manual](release-bundle-includes/manual.pdf).
+The [miRTrace manual](release-bundle-includes/doc/manual/mirtrace_manual.pdf).
 
 ## Features
 * Supports (in principle) any platform cabable of running Java 1.7 or higher, including Linux, Mac OS X and Windows.
