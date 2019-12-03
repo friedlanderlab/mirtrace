@@ -11,7 +11,7 @@ miRTrace is published in [Genome Biology (2018)](https://genomebiology.biomedcen
 [![Video tutorial](images/tutorial_snap.png)](https://friedlanderlab.org/html/mirtrace-video-tutorial.mp4)
 
 ## Clades identified by miRTrace
-![Image of species tree](images/species_tree.png)
+<img src="images/species_tree.png" width="50%" height="50%" />
 
 Above is the species tree of the 14 clades with unscaled branches. 
 
