@@ -5,6 +5,7 @@ from __future__ import print_function
 import sys
 import os
 import re
+import subprocess
 
 DEFAULT_HEAP_ALLOCATION_SIZE = 2 * 1024**3
 
@@ -31,13 +32,33 @@ if not mirtrace_path:
 def print_manual_jar_help_text():
     print("java -jar {0} --help".format(mirtrace_path))
 
-try:
-    import subprocess
-    memory_to_use = None
+def get_memory_to_use():
+    """
+    Determines the memory to use:
+     - Check the MIRTRACE_HEAP_ALLOCATION environment variable
+     - Use half of the system ram
+     - Fallback to 2GB
+    
+    Returns the RAM to use in MB
+    """
+    memory_to_use = os.getenv("MIRTRACE_HEAP_ALLOCATION", None)
+    if memory_to_use is not None:
+        # Parse MIRTRACE_MAX_RAM
+        units = {"B": 1, "KB": 1024, "MB": 1024**2, "GB": 1024**3, "TB": 1024**4} 
+        memory_to_use_upper = memory_to_use.upper()
+        (value, unit) = re.match(r"^([0-9\.]+)([A-Z]*)", memory_to_use_upper).groups()
+        value = float(value)
+        if unit == "":
+            unit = "B"
+        if unit not in units.keys():
+            raise ValueError("Unrecognized unit in MIRTRACE_HEAP_ALLOCATION: %s. Use one of {%s}" %
+                (memory_to_use, ", ".join(units.keys())))
+        return (value * units[unit]) / 1024**2
     if sys.platform.startswith('linux'):
         tot_mem = (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))
         memory_to_use = tot_mem / 2
-    elif sys.platform.startswith('darwin'): # Mac OS X
+        return memory_to_use / 1024**2
+    if sys.platform.startswith('darwin'): # Mac OS X
         try:
             sysctl_out = subprocess.check_output(['sysctl', '-a'])
             for line in sysctl_out.splitlines():
@@ -53,18 +74,23 @@ try:
                         memory_to_use = int(m.group(2))
         except subprocess.CalledProcessError:
             print("Warning: Could not determine memory size using sysctl on Mac OS X platform.", file=sys.stderr)
+        if memory_to_use is not None:
+            return memory_to_use / 1024**2
+    # Fallback:
+    mb_to_use = DEFAULT_HEAP_ALLOCATION_SIZE / 1024**2
+    print("Unknown platform - unable to determine available memory.")
+    print("Using a default memory setting of " + mb_to_use + "MB.")
+    print()
+    print("If this is not enough, please run the mirtrace manually.")
+    print_manual_jar_help_text()
+    return mb_to_use
+    
 
-    mem_arg_xms = "{0:.0f}M".format(memory_to_use / 1024**2)
+
+try:
+    memory_to_use = get_memory_to_use()
+    mem_arg_xms = "{0:.0f}M".format(memory_to_use)
     mem_arg_xmx = mem_arg_xms
-    if memory_to_use == None:
-        memory_to_use = DEFAULT_HEAP_ALLOCATION_SIZE
-        print("Unknown platform - unable to determine available memory.")
-        print("Using a default memory setting of " + mem_arg_xms + ".")
-        print()
-        print("If this is not enough, please run the mirtrace manually.")
-        print_manual_jar_help_text()
-
-
     java_cmd = [
             'java', '-Xms' + mem_arg_xms, '-Xmx' + mem_arg_xmx, '-jar', 
             mirtrace_path, '--mirtrace-wrapper-name', start_script_wrapper_name

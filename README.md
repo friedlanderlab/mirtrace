@@ -85,6 +85,7 @@ conda install -c bioconda mirtrace
 
 2. Run miRTrace:
    - Using mirtrace wrapper script: `./mirtrace <additional parameters, see manual>`. If the wrapper script is not executable, try `chmod gu+x mirtrace`.
+     The amount of RAM for the java heap is set to half of the RAM of the system by default, and can be overriden with the `MIRTRACE_HEAP_ALLOCATION` environment variable: `MIRTRACE_HEAP_ALLOCATION="8GB" ./mirtrace`.
    - Using mirtrace.jar: `java -jar -Xms4G -Xmx4G mirtrace.jar <additional parameters, see manual>`. Change the "4" to about half of your system RAM or more. To verify that you are using the correct version of Java, run `java -version`.
 
 The [miRTrace manual](release-bundle-includes/manual.pdf) contains examples for multiple use-cases.
